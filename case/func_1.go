@@ -1,7 +1,7 @@
 /**
- *
- *
- *
+ *	在main函数中如果不是用make，则data的lenght和cap都为0
+ *	在add方法中明确需要返回s.data[n]	
+ *	add方法中fibonacci中参数需要指定为指针，在main中声明的时候Go会转换成指针对象
  **/
 
 package main
@@ -12,7 +12,6 @@ import (
 type fibonacci struct {
 	n int
 	data []int
-	maps map[int]int
 }
 
 func(s *fibonacci) add(n int)(v int){
