@@ -1,7 +1,7 @@
 /*
-	注释调default当循环执行两次之后发生：fatal error: all goroutines are asleep - deadlock!
-	因为系统检测到没有goroutine向channel中些数据啦
-*/
+ *	注释调default当循环执行两次之后发生：fatal error: all goroutines are asleep - deadlock!
+ *	因为系统检测到没有goroutine向channel中些数据啦
+ */
 
 package main 
 import (

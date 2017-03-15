@@ -27,6 +27,50 @@ func main() {
 	*/
 
 	/*
+	time.Sleep(time.Second) 
+	messages := make(chan string)
+	messages <- "ping"				
+	select {						// all goroutines are asleep - deadlock!  只能检测到之前的，检测不到之后的
+		case value := <- messages:
+			fmt.Println("read ", value)
+		default:
+			fmt.Println("read null")
+	}
+	*/
+
+	/*
+	time.Sleep(time.Second) 
+	messages := make(chan int, 1)
+	for {
+		select {
+		case messages <- 0 :		//？？？
+		case messages <- 1 :
+		}
+
+		i := <- messages
+		fmt.Println(i)
+	}
+	*/
+	
+	messages := make(chan string)
+
+	timeout := make(chan bool)
+	go func () {
+		time.Sleep(time.Second * 2)
+		timeout <- true
+	}()
+	
+	select {
+		case value := <-messages:
+			fmt.Println("read messages ", value)
+		case <- timeout:
+	}
+
+	go func () {
+		messages <- "msg"
+	}()
+
+	/*
 	messages := make(chan string, 1)	//channel缓冲区为1
 	messages <- "ping"					//在主goroutine中写入，存在缓存区，正常读取
 	fmt.Println(<-messages)
