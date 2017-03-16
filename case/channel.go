@@ -38,9 +38,9 @@ func main() {
 	}
 	*/
 
-	/*
 	time.Sleep(time.Second) 
 	messages := make(chan int, 1)
+	// num := 1
 	for {
 		select {
 		case messages <- 0 :		//？？？
@@ -49,9 +49,17 @@ func main() {
 
 		i := <- messages
 		fmt.Println(i)
+
+		break
+		/*
+		num++
+		if num == 8 {
+			break
+		}
+		*/
 	}
-	*/
-	
+		
+	/*
 	messages := make(chan string)
 
 	timeout := make(chan bool)
@@ -59,16 +67,22 @@ func main() {
 		time.Sleep(time.Second * 2)
 		timeout <- true
 	}()
-	
+
+	go func () {
+		time.Sleep(time.Second * 1)
+		messages <- "test"
+	}()
+
 	select {
 		case value := <-messages:
-			fmt.Println("read messages ", value)
+			fmt.Println("read messages:", value)
 		case <- timeout:
 	}
 
 	go func () {
 		messages <- "msg"
 	}()
+	*/
 
 	/*
 	messages := make(chan string, 1)	//channel缓冲区为1
