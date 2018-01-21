@@ -1,7 +1,6 @@
 package main
 import (
 	"fmt"
-	"time"
 )
 
 func Add(x, y int) {
@@ -13,7 +12,35 @@ func Add(x, y int) {
 // 但是其他goroutine线都已经执行完了(all goroutines are asleep)，那么就永远不会有数据放入管道。 
 // 所以，main goroutine线在等一个永远不会来的数据，那整个程序就永远等下去了。 
 // 统自动在除了主协程之外的协程都关闭后，做的检查，继而报出的错误， 
+
+func consumer (data chan int, done chan bool) {
+	for x := range data {
+		println("receive:", x)
+	}
+
+	fmt.Println("consumer chan %v", &data)
+	done <- true
+}
+
+func procucer(data chan int) {
+	for i := 0; i < 4; i++ {
+		data <- i
+	}
+
+	fmt.Println("producer chan %v", &data)
+	close(data)
+}
+
+
 func main() {
+	done := make(chan bool)
+	data := make(chan int)
+
+	go consumer(data, done)
+	go procucer(data)
+
+	<-done
+
 	/*
 	for i:= 0; i < 100; i++ {
 		go Add(i, i)
@@ -38,6 +65,7 @@ func main() {
 	}
 	*/
 
+	/*
 	time.Sleep(time.Second) 
 	messages := make(chan int, 1)
 	// num := 1
@@ -51,14 +79,13 @@ func main() {
 		fmt.Println(i)
 
 		break
-		/*
 		num++
 		if num == 8 {
 			break
 		}
-		*/
 	}
-		
+	*/
+
 	/*
 	messages := make(chan string)
 
