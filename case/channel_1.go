@@ -1,1 +1,0 @@
-var ch chan int
