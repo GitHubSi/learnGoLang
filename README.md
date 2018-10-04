@@ -1,8 +1,4 @@
-# learnGoLang
-学习go语言编程
+# Websocket Example
 
-### GOPATH指定多个路径报错，错误信息：
-
-	go: GOPATH entry is relative; must be absolute path: "".
-	Run 'go help gopath' for usage.	
+基于作者提供的[demo](https://github.com/gorilla/websocket/tree/master/examples/chat)做的完善
 	
