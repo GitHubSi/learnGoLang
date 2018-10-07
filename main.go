@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"websocket/client"
 )
 
 func main() {
@@ -13,6 +14,7 @@ func main() {
 	})
 
 	router.GET("/user/:name", func(context *gin.Context) {
+		client.ServeWs(context.Writer, context.Request)
 		context.String(http.StatusOK, "Hello %s", context.Param("name"))
 	})
 
